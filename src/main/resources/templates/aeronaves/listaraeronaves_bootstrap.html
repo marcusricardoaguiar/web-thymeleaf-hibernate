@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Iniciando: Aplicações WEB</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div class="container">
+		<h2>Aeronaves</h2>
+		<label>Pesquisar: </label>
+		<div>
+			<form action="#"
+				th:action="@{/listaraeronaves?(nome=${aeronavePesquisa.nome})}"
+				th:object="${aeronavePesquisa}" method="get">
+				<div class="form-group">
+					<div class="col-sm-4">
+						<input type="text" th:field="*{nome}" class="form-control" />
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-4">
+						<button type="submit" class="btn btn-default">Filtrar</button>
+						<a href="novoaeronave" class="btn btn-default">Nova Aeronave</a>
+					</div>
+				</div>
+			</form>
+		</div>
+		<label th:text="${message}"></label>
+		<h2>Lista de Aeronaves</h2>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Nome</th>
+					<th>Capacidade</th>
+					<th>Peso Máximo</th>
+					<th>Empresa</th>
+					<th>Ações</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="aeronave : ${aeronaves}">
+					<td th:text="${aeronave.nome}"></td>
+					<td th:text="${aeronave.capacidade}"></td>
+					<td th:text="${aeronave.pesoMaximo}"></td>
+					<td th:text="${aeronave.empresa.nome}"></td>
+					<td><a class="btn btn-default"
+						th:href="@{'editaraeronave?id=' + ${aeronave.id}}">Editar</a> <a
+						class="btn btn-default"
+						th:href="@{'removeraeronave?id=' + ${aeronave.id}}">Excluir</a></td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="footer">
+			<div class="pull-right" style="margin-top: 5%">
+				<a href="/" class="btn btn-default">Voltar</a>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

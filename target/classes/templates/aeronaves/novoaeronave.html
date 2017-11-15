@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head> 
+    <title>Iniciando: Aplicações WEB</title> 
+    <meta http-equiv="Content-Type" 
+    	content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<label th:text="${message}"></label>
+	<form action="#" th:action="@{'/salvaraeronave?id=' + ${aeronave.id}}" 
+		th:object="${aeronave}" method="post">
+		<div>
+			<label>Código: </label>
+			<input type="number" th:field="*{id}" disabled="true"/>
+		</div>
+		<div>
+			<label>Nome: </label>
+			<input type="text" th:field="*{nome}" />
+		</div>
+		<div>
+			<label>Capacidade: </label>
+			<input type="number" th:field="*{capacidade}" />
+		</div>
+		<div>
+			<label>Peso Maximo: </label>
+			<input type="number" th:field="*{pesoMaximo}" />
+		</div>
+		<div>
+			<label>Empresa: </label>
+			<select th:field="*{empresa.id}">
+		        <option th:each="empresa : ${empresas}" th:value="${empresa.getId()}" 
+                    th:text="${empresa.getNome()}">Empresa</option>
+			</select>
+		</div>
+		<div>
+			<button name="salvar" type="submit">Salvar</button>
+		</div>
+	</form>
+	<a href="/">Voltar</a>
+</body>
+</html>

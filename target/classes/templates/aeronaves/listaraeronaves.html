@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Iniciando: Aplicações WEB</title>
+	<meta http-equiv="Content-Type" 
+		content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<label>Pesquisar: </label>
+	<div>
+		<form action="#" th:action="@{/listaraeronaves?(nome=${aeronavePesquisa.nome})}"
+			th:object="${aeronavePesquisa}" method="get">
+			<input type="text" th:field="*{nome}"/>
+			<button type="submit">Filtrar</button>
+		</form>
+	</div>
+	<div>
+		<a href="novoaeronave">Novo Aeronave</a>
+	</div>
+	<div class="aeronaves"
+		th:unless="${#lists.isEmpty(aeronaves)}">
+		<label th:text="${message}"></label>
+		<h2>Lista de Aeronaves</h2>
+		<table>
+			<thead>
+				<tr>
+					<th>Nome</th>
+					<th>Capacidade</th>
+					<th>Peso Máximo</th>
+					<th>Empresa</th>
+					<th>Ações</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="aeronave : ${aeronaves}">
+					<td th:text="${aeronave.nome}"></td>
+					<td th:text="${aeronave.capacidade}"></td>
+					<td th:text="${aeronave.pesoMaximo}"></td>
+					<td th:text="${aeronave.empresa.nome}"></td>
+					<td>
+						<a th:href="@{'editaraeronave?id=' + ${aeronave.id}}">Editar</a>
+						<a th:href="@{'removeraeronave?id=' + ${aeronave.id}}">Excluir</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<a href="/">Voltar</a>
+</body>
+</html>

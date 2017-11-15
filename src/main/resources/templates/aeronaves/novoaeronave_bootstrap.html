@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head> 
+    <title>Iniciando: Aplicações WEB</title> 
+    <meta http-equiv="Content-Type" 
+    	content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div class="container">
+		<h2>Nova Aeronave</h2>
+		<label th:text="${message}"></label>
+		<form action="#" th:action="@{'/salvaraeronave?id=' + ${aeronave.id}}" 
+			th:object="${aeronave}" method="post">
+			<div class="form-group">
+				<div class="col-sm-4">
+					<label>Código: </label>
+					<input type="number" class="form-control" th:field="*{id}" disabled="true"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-4">
+					<label>Nome: </label>
+					<input type="text" class="form-control" th:field="*{nome}" />
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-4">
+					<label>Capacidade: </label>
+					<input type="number" class="form-control" th:field="*{capacidade}" />
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-4">
+					<label>Peso Maximo: </label>
+					<input type="number" class="form-control" th:field="*{pesoMaximo}" />
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-4">
+					<label>Empresa: </label>
+					<select th:field="*{empresa.id}" class="form-control">
+				        <option th:each="empresa : ${empresas}" th:value="${empresa.getId()}" 
+		                    th:text="${empresa.getNome()}">Empresa</option>
+					</select>
+				</div>
+			</div>
+			<div class="footer">
+		    	<div class="pull-right" style="margin-top: 5%">
+					<button class="btn btn-default" name="salvar" type="submit">Salvar</button>
+					<a href="/" class="btn btn-default">Voltar</a>
+				</div>
+			</div>
+		</form>
+	</div>
+</body>
+</html>

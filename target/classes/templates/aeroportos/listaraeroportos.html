@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Iniciando: Aplicações WEB</title>
+	<meta http-equiv="Content-Type" 
+		content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<label>Pesquisar: </label>
+	<div>
+		<form action="#" th:action="@{/listaraeroportos?(nome=${aeroportoPesquisa.nome})}"
+			th:object="${aeroportoPesquisa}" method="get">
+			<input type="text" th:field="*{nome}"/>
+			<button type="submit">Filtrar</button>
+		</form>
+	</div>
+	<div>
+		<a href="novoaeroporto">Novo Aeroporto</a>
+	</div>
+	<div class="aeroportos"
+		th:unless="${#lists.isEmpty(aeroportos)}">
+		<label th:text="${message}"></label>
+		<h2>Lista de Aeroportos</h2>
+		<table>
+			<thead>
+				<tr>
+					<th>Nome</th>
+					<th>Cidade</th>
+					<th>Estado</th>
+					<th>Pais</th>
+					<th>Ações</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="aeroporto : ${aeroportos}">
+					<td th:text="${aeroporto.nome}"></td>
+					<td th:text="${aeroporto.cidade}"></td>
+					<td th:text="${aeroporto.estado}"></td>
+					<td th:text="${aeroporto.pais}"></td>
+					<td>
+						<a th:href="@{'editaraeroporto?id=' + ${aeroporto.id}}">Editar</a>
+						<a th:href="@{'removeraeroporto?id=' + ${aeroporto.id}}">Excluir</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<a href="/">Voltar</a>
+</body>
+</html>
